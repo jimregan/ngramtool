@@ -52,8 +52,8 @@ using std::string;
 using std::ustring;
 using std::vector;
 
-template <typename CharT, typename Traits = char_traits<CharT> >
 
+template <typename CharT, typename Traits = std::char_traits<CharT> >
 /**
  * This class implements Nagao 1994 N-gram extraction algorithm.
  *
