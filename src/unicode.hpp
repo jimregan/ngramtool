@@ -40,6 +40,7 @@
 #endif
 
 #include <string>
+#include <cstring>
 
 typedef unsigned short uchar_t;
 typedef unsigned short uint_t;
