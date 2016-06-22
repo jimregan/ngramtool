@@ -1,0 +1,20 @@
+SubDir TOP src ;
+
+if $(TARGET_DIR) 
+{
+    LOCATE_TARGET = $(TARGET_DIR) ;
+}
+
+Library libutility : iconvert.cpp tools.cpp vocab.cpp mmapfile.c ;
+
+Main text2ngram : text2ngram.cpp text2ngram_cmdline.c ;
+LinkLibraries text2ngram : libutility ;
+
+
+Main extractngram : extractngram.cpp extractngram_cmdline.c ;
+LinkLibraries extractngram : libutility ;
+
+Main strreduction : strreduction.cpp strreduction_cmdline.c ;
+LinkLibraries strreduction : libutility ;
+
+InstallBin $(BINDIR) : text2ngram extractngram strreduction ;

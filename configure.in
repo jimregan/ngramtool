@@ -1,0 +1,87 @@
+dnl   Copyright 2002-2004 by Zhang Le <ejoy@xinhuanet.com>
+
+AC_INIT(Jamrules.in)
+
+AC_CONFIG_HEADER(config.h)
+AC_CONFIG_AUX_DIR(script)
+
+dnl Check platform
+AC_CANONICAL_HOST
+
+dnl use C++ do lib checking
+AC_LANG_CPLUSPLUS
+
+dnl Checks for programs.
+AC_PROG_CC
+AC_PROG_CXX
+AC_C_BIGENDIAN
+
+wi_ARG_DISABLE_CCDV
+dnl check for compiler flags and debug options 
+AC_ARG_ENABLE(debug,
+      AC_HELP_STRING([--enable-debug], 
+             [compile for debug mode, useful for developers. (default=no)]),
+    [if test "x$enableval" = "xyes"; then
+         enable_debug=yes
+     else
+         enable_debug=no
+     fi])
+
+AC_ARG_ENABLE(static,
+    [  --enable-static         build static binaries (default=no)],
+    [if test "x$enableval" = "xyes"; then
+         enable_static=yes
+     else
+         enable_static=no
+     fi])
+
+dnl AC_CHECK_PROGS(MAKE, gmake make)
+dnl AC_SUBST(MAKE)
+wi_PROG_CCDV
+
+
+dnl Checks for header files.
+dnl AC_CHECK_HEADERS([fcntl.h string.h sys/ioctl.h termios.h unistd.h])
+
+dnl Checks for typedefs, structures, and compiler characteristics.
+
+dnl Checks for library functions.
+AC_FUNC_MMAP
+AC_CHECK_LIB(gnugetopt, getopt)
+
+AM_ICONV
+
+if test "$am_cv_func_iconv" != 'yes'; then
+    echo ""
+    echo "*** iconv() not found on this system, please install libiconv from"
+    echo "*** http://www.gnu.org/software/libiconv/ first!"
+    echo ""
+    exit 1
+fi
+
+if test "$enable_debug" = 'yes'; then
+    CFLAGS="$CFLAGS $CPPFLAGS -g -Wall -DHAVE_CONFIG_H" 
+    CXXFLAGS="$CXXFLAGS $CPPFLAGS -g -Wall -DHAVE_CONFIG_H" 
+    OPTIM="-O0"
+    TARGET_DIR=""
+else
+    CFLAGS="$CFLAGS $CPPFLAGS -Wall -DNDEBUG -DHAVE_CONFIG_H" 
+    CXXFLAGS="$CXXFLAGS $CPPFLAGS -Wall -DNDEBUG -DHAVE_CONFIG_H" 
+    OPTIM="-O3"
+    TARGET_DIR="src/opt"
+fi
+
+if test "$enable_static" = 'yes'; then
+    LINK="$CXX $LDFLAGS -static"
+else
+    LINK="$CXX $LDFLAGS"
+fi
+
+AC_SUBST(OPTIM)
+AC_SUBST(LINK)
+AC_SUBST(TARGET_DIR)
+AC_SUBST(host_cpu)
+AC_SUBST(host_os)
+AC_SUBST(host_vendor)
+AC_OUTPUT(Jamrules)
+

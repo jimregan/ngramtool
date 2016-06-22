@@ -1,0 +1,24 @@
+CC = @CCDV@ @CC@ ;
+C++ = @CCDV@ @CXX@ ;
+C++FLAGS = @CXXFLAGS@ ;
+CCFLAGS = @CFLAGS@ ;
+OPTIM = @OPTIM@ ;
+LINK = @CCDV@ @LINK@ ;
+LINKLIBS = @LIBS@ @LIBICONV@ ;
+
+TARGET_DIR = @TARGET_DIR@ ;
+HDRS = $(TOP) ;
+
+PREFIX = @prefix@ ;
+BINDIR      = $(PREFIX)/bin ;
+LIBDIR      = $(PREFIX)/lib ;
+MANDIR      = $(PREFIX)/man ;
+STDHDRS     = $(PREFIX)/include ;
+
+HOST_OS = @host_os@ ;
+
+if $(HOST_OS) = mingw32
+{
+    AR = "/usr/local/bin/mingw32-ar cru" ;
+    SUFEXE = .exe ;
+}

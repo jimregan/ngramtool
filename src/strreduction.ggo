@@ -1,0 +1,17 @@
+package "strreduction"
+version ""
+purpose "perform Statistical Substring Reduction operation on input N-grams
+
+example: strreduction -f5 -a2 file
+will do SSR operation on input word N-gram strings with merging threshold set
+to 5 (-f5) using algorithm 2 (-a2)."
+
+option "from" F "input stream encoding (for character ngram only)" string default="UTF-8" no
+option "to" T "output stream encoding (for character ngram only)" string default="UTF-8" no
+option "output"  o "write output to file,use stdout if omitted" string no
+option "algorithm" a "using Nth reduction algorithm" int default="2" no
+option "char" c "enter char gram mode, default is word ngram model" flag off
+option "sort" s "sort result" flag off
+option "time" t "show time cost by reduction algorithm on stderr (not including I/O)" flag off
+option "freq" f "frequence threshold needed in algorithm 1,2,4" int default="1" no
+option "m1" m "minimum n-gram need in algorithm 4" int default="1" no

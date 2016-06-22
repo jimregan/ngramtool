@@ -1,0 +1,15 @@
+Notice: You must compile the package with gcc 3.0 or higher. Other
+compilers may not work.
+
+Three steps to install:
+ 1. run "./configure" script to config various options. You can try:
+    ./configure   build with default settings (recommended)
+  or
+    ./configure --enable-static will build a static linked binaries
+  or
+    ./configure --help will bring you more options
+
+ 2. type "make" to build the software
+
+ 3. type "make install" to install the software
+

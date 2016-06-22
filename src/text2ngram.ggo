@@ -1,0 +1,43 @@
+package "text2ngram"
+version ""
+purpose "Extract arbitrary N-Grams from raw text file. Optionally it can
+convert a set of text streams into a ngram table file [.ngram] and generate
+ptable index:[.ptable] for later use with `extractngram'.
+
+Example:
+1. text2ngram -n3 file
+extract all trigram from a file to stdout.
+
+2. text2ngram file1 file2 file3 -o corpus
+will calculate three files into one big corpus.ngram file and
+generate a index file (corpus.ptable) with a corpus.vocab file.
+
+3. text2ngram file -F gbk -T gbk -f5 -n3 -m10 -c --nopunct
+will extract *Character* 3-gram to 10-gram with frequency > 5 from a
+text file encoded in GBK and output ngrams in GBK encoding. All
+ngrams with (CJK) punctuations are discarded (--nopunct)
+
+This program can also extract N-gram directly from in-memory ptable
+and ltable provided that all the corpus can be fit in memory and no
+ngram file name given (-o).  For the extraction of N-gram from large
+corpus, considering extractngram utility.  By default, all
+input/output encoding assume to be UTF-8.
+
+Note: Use mmap() for disk merging is fast but may exceed 2G memory
+limitation on some OS (Win32) when processing large corpus (>1G). "
+
+option "from" F "input stream encoding (for character ngram only)" string default="UTF-8" no
+option "to" T "output stream encoding (for character ngram only)" string default="UTF-8" no
+option "output" o "ngram file name" string no
+option "mem" M "size of memory(MB) to use" int default="50" no
+option "char" c "counting char ngram" flag off
+option "mmap" - "use mmap() for disk merging" flag off
+option "min-n" n "extract N gram (where N >= n)" int no
+option "max-n" m "extract N gram (N <= m) (max M=255,M=N if omitted)" int no
+option "freq" f "extract N gram whose freq >= f" int default="1" no
+option "nopunct" - "exclude N gram with punctuations and special symbols (non-word)" flag off
+option "wordlen" w "average word length when count word ngrams.this option is a hint for pre-allocate memory" int default="3" no
+#option "pad"  p "padding n BOS|EOS tag before|after sentence" int default="2" no
+#option "merge" - "merge tmp ptables, for debug only" flag off
+#option "count" - "count of ptables to be merge, for debug only" int default="2" no
+#option "prefix" - "prefix name of tmp ptables to be merge, for debug only" string no

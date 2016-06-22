@@ -1,0 +1,22 @@
+package "extractngram"
+version ""
+purpose "extract N-gram info from ngram table[.ngram] ptable index[.ptable] 
+and ltable index[.ltable]
+
+Example: extractngram -n3 -m5 -i corpus
+will extract 3-gram, 4-gram and 5-gram statistics from corpus.ngram
+corpus.ptable and corput.ltable previously saved with `text2ngram'
+and write results to stdout.  if -m5 is omitted, only 3-gram is
+extracted from ngram table."
+
+option "to" T "output stream encoding (for character ngram only)" string default="UTF-8" no
+option "input" i "ngram file name,not including .ngram" string yes
+option "min-n" n "extract N gram (where N >= n)" int yes
+option "max-n" m "extract N gram (N <= m) (max M=255,M=N if omitted)" int no
+option "freq" f "extract N gram whose freq >= f" int default="1" no
+option "mmap" M "use mmap() for faster operation" flag off
+option "count" - "only count the number of N-gram extracted" flag off
+#option "verbose" v "display a progress bar when processing" flag off
+option "char" c "extract char ngram" flag off
+option "nopunct" - "exclude N gram with (CJK) punctuations and special symbols (non-word)" flag off
+#option "dump" - "dump ngram file to stdout,max 25 char per line" flag off
