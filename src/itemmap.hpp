@@ -42,6 +42,7 @@
 #include <ext/hash_map>
 using namespace __gnu_cxx;
 namespace __gnu_cxx {
+    template<>
     struct hash<std::string> {
         size_t operator()(const std::string& s) const {
             unsigned long __h = 0;

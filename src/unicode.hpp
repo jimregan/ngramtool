@@ -124,6 +124,7 @@ namespace std{
     class uchar_traits
         : public __char_traits_base<uchar_t, uint_t>
         {};
+    template<>
     class char_traits<unsigned>
         : public __char_traits_base<unsigned, unsigned>
         {};
