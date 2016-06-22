@@ -106,7 +106,7 @@ bool IConvert::convert(const string& from, ustring& to) {
 	outsize = BUFFER_SIZE;
 
     size_t ret;
-    ICONV_CONST char* psrc = (ICONV_CONST char*)from.c_str();
+    char* psrc = (char *)from.c_str();
     char* pdest = m_buffer;
 
     ret = iconv(m_iconv_to_unicode, &psrc, &insize, &pdest, &outsize);
@@ -131,7 +131,7 @@ bool IConvert::convert(const ustring& from,string& to) {
 	outsize = BUFFER_SIZE;
 
     size_t ret;
-    ICONV_CONST char* psrc = (ICONV_CONST char*)from.data();
+    char* psrc = (char*)from.data();
     char* pdest = m_buffer;
 
     ret = iconv(m_iconv_from_unicode, &psrc, &insize, &pdest, &outsize);
